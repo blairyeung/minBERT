@@ -37,18 +37,25 @@ class BertSentClassifier(torch.nn.Module):
                 param.requires_grad = True
 
         # todo -- add a classifier head
-        self.classify_head = nn.Sequential(
-            nn.Linear(config.hidden_size, config.classify_intermediate),
-            nn.ReLu(),
-            nn.Linear(config.classify_intermediate, self.num_labels)
+        self.classifier = torch.nn.Sequential(
+            torch.nn.Linear(config.hidden_size, 64),
+            torch.nn.ReLU(),
+            torch.nn.Linear(64, self.num_labels)
         )
-        raise NotImplementedError
 
     def forward(self, input_ids, attention_mask):
         # todo
         # the final bert contextualize embedding is the hidden state of [CLS] token (the first token)
         # Remember to softmax the pooler output to get the logits
-        raise NotImplementedError
+        bert_output = self.bert(input_ids, attention_mask)
+        last_hidden_state = bert_output['last_hidden_state']
+        
+        cls_token = last_hidden_state[:, 0]
+
+        logits = F.log_softmax(self.classifier(cls_token), dim=-1)
+        
+        return logits
+    
 
 # create a custom Dataset Class to be used for the dataloader
 class BertDataset(Dataset):
@@ -225,7 +232,7 @@ def test(args):
         if args.use_mps:
             device = torch.device('mps')
             print ("Using MPS acceleration (needs pytorch >=1.12)")
-        elif args.use_cuda:
+        elif args.use_gpu:
             device = torch.device('cuda')
             print ("Using CUDA acceleration")
         else:
