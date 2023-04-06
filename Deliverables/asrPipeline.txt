@@ -1,0 +1,55 @@
+1. Choice of ASR
+I chose the EncoderDecoderASR from SpeechBrain. I recorded the sound using default Sound Recorder from Windows 11. 
+
+2. Original transcirpts
+
+A word.
+"Elephants."
+
+"The sun sets in the west every evening."
+A sentence, but read very slowly:
+
+"The quick brown fox jumps over the lazy dog."
+A sentence read at normal speed, except speeding up at some words:
+
+"I will travel to Paris next month for a short vacation."
+A sentence spoken very fast:
+
+"She sells seashells by the seashore."
+(Optional) A sentence containing slang or words from a second language:
+
+"That café has the best croissants, they're 非常好!" (French + Chinese)
+
+A sentence with one word spelled out by alphabet:
+"My name is Alice, spelled A-L-I-C-E."
+
+A sentence where two neighboring words have blurred boundaries:
+"I can'tbelieve it's already the end of the year."
+
+A sentence spoken with some stuttering, containing filler words and repetitiveness:
+"So, um, I was, uh, going to the, you know, store and, uh, I, I saw this, um, incredible sale."
+
+A sentence with a tongue twister:
+"How can a clam cram in a clean cream can?"
+
+3. Transcription result
+Transcription for file 0: ELEPHANTS
+Transcription for file 1: THE SAINT SAID IN THE WEST EVERY EVENING
+Transcription for file 2: THE QUICK BROWN FOX CHUMS COVERS LAZY DOG
+Transcription for file 3: ABROAD TRAVELLED TO PARIS NEXT MONTH FOR A SHORT VACATION
+Transcription for file 4: HIS ELSIE CHARLES BESSY SHORE
+Transcription for file 5: THE CONVEY OF THE BASILISON IN THE HAWKSHIRE
+Transcription for file 6: MY NAME IS ALICE STOUT AIN'T NOW I SEE YOU
+Transcription for file 7: A COMMITTEE IS ALREADY INNOCENTLY
+Transcription for file 8: SO ON I WAS GOING ALL GOING TO THE STORE AND OF I SOUGHT IT ON INCREDIBLE CELL
+Transcription for file 9: HOW CAN A LAMB CRAMMED IN A CLEAN QUEEN YOU CAN
+
+4. Analysis
+The performance of transcription is significantly under my expectation. 
+
+The ASR model did reasonably well in short/single word recognition, but it suffers to keep up when the structure of the sentences gets more complex. 
+The model fails to recognize some non-english tokens (i.e, 非常好，croissants), and single-letter tokens (A-L-I-C-E). The model also fails to handle faster reading speeds, and some blurred words. Specifically sentence 7 and sentence 9.
+The variability in speed seemed to make the model suffer in recognize the actual phonemes. However, it seems to performe reasonably well in removing the disfulencies, specifically in sentence 8, where it can remove all "uh" and "um" while 
+keeping most of the sentence correct.
+We believed that the model might have not addressed the actual meaning of each of these sentences, as most of them don't make any sense. For example, in sentence 3, the ASR recognized "jumps" as "chums".
+However, the poor performance of the model may also be attributed the the audio quality (althought we believe they are acceptable).
