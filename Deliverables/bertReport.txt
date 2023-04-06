@@ -1,0 +1,23 @@
+1. Architecture change and hyperparameters
+I modified the strucutre of the classifier a bit by using two layers of FC connected by a RELU. This has been proved to improve the performance of the model over a simple linear layer.
+
+I used the following hyper parameters:
+Hyperparam    |Value
+--------------|--------------
+Hidden_size   |768
+Dropout_prob  |0.3
+Learning_rate |1e-5
+option        |Flexible
+seed          |11711
+epochs        |10
+
+
+
+Hyperparam        |Value
+------------------|------------------
+GPU used          |NVIDIA RTX A4000
+Runtime per epochs|~2min
+GPU memory        |16G
+
+2. Tuning procedure
+I started by tuning the option. I found the accuracy to be significantly higher when option is set to flexible (approx 30% accuracy boost), and set option to flexible in all the following tuning. Then, I attempted to adjust the dropout_prob and learning_rate. However, I did not find significant improvement over the development/training set (~ 0.9 train acc). Then I slightly adjusted the classifier architecture by adding an extra layer, then the training accuracy went up to as high as 0.998. I initially suspected this may be attributed to potential overfit. However, the hight accuracy in dev set (0.967) suggested the superiority in the performance. Therefore, I did not keep tuning other hyperparams as the accuracy is already very impressive.
