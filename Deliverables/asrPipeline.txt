@@ -1,5 +1,7 @@
 1. Choice of ASR
-I chose the EncoderDecoderASR from SpeechBrain. I recorded the sound using default Sound Recorder from Windows 11. 
+I chose the EncoderDecoderASR from SpeechBrain. I called function transcribe_file() to transcribe the recorded audio files (in wav form). I used the pretrained model EncoderDecoderASR.from_hparams(source="speechbrain/asr-crdnn-rnnlm-librispeech", savedir="pretrained_models/asr-crdnn-rnnlm-librispeech").
+
+I recorded the sound using default Sound Recorder from Windows 11, and reformated them into wav (from m4a).
 
 2. Original transcirpts
 

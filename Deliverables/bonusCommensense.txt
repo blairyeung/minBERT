@@ -1,0 +1,77 @@
+1. LLM
+I chose Openai's GPT-4 (API) for evaluation. It is the currently most advanced LLM out there.
+
+2. Questions
+I chose the following three Winograd questions:
+
+--------------------------------------------------------------------------------------------------------
+a). Paul tried to call George on the phone, but he wasnt available. Who was not available?
+
+b). We went to the lake, because a shark had been seen at the ocean beach, so it was a dangerous place to swim. Which was a dangerous place to swim?
+
+c). There are too many deer in the park, so the park service brought in a small pack of wolves. The population should increase over the next few years. Which population will increase?
+--------------------------------------------------------------------------------------------------------
+
+
+3. Response without prompt engineering
+Here are the responses:
+--------------------------------------------------------------------------------------------------------
+a). George was not available.
+
+b). The ocean beach was a dangerous place to swim.
+
+c). The population of wolves should increase over the next few years.
+--------------------------------------------------------------------------------------------------------
+
+The responses are correct. This indicates the strong commen-sense capability of the GPT-4 model. It is very impressive that, even without propmt engineering, the model is able to generate correct results.
+
+4. Response with prompt engineering
+After few attempts I added "Why? Are there any other possibilities?" to see if the model can give reasonable argument to support their decision. The "Are there any other possibilities?" acts as a rhetorical question to
+make the model go deeper into on the original quesiton, and question (slightly) its original response.
+
+Here are the responses:
+--------------------------------------------------------------------------------------------------------
+
+a). George was not available. The reason is not mentioned in the given information. There could be various possibilities for George's unavailability, such as being busy, not hearing the phone, having his phone turned off, or being in an area with poor reception.
+
+b). The ocean beach was a dangerous place to swim. The reason is that a shark had been seen there. Other possibilities for the ocean beach being dangerous could include strong currents, high waves, or hazardous marine life. However, based on the given information, the main reason for the danger was the presence of a shark.
+
+c). The population that should increase over the next few years is the wolf population. The reason is that the park service brought in a small pack of wolves to help control the deer population. Other possibilities could include the deer population continuing to increase despite the presence of wolves, or the populations of other animals in the park being affected by the introduction of wolves. However, based on the given information, the main expectation is for the wolf population to increase.
+--------------------------------------------------------------------------------------------------------
+
+The model, again, gives correct responses to the question. I believed that the reasoning are very good. However, when I ask it if there are any other possibilities, the model did not provide enough context and failed to explain the deeper underlying mechanism. Thus, I have decided to dig deeper and see if it is able to explain what is truly happening (i.e, the shark might eat us, and swiming in water exposes us to the shark, so swimming in the ocean is dangerous; shark does not live in the lake, so we swim in the lake).
+
+5. Digging deeper
+
+I am not particularly satisfied with the resposne for the response for question (b) and (c); thus, I engineered the specific prompts so that it could explain with depth. I engineered the prompts so that the response could be precivable by broader audiences, including those who have no background knowledge in this field.
+
+b). why is the presense of a shark cause it danger to swim in the ocean
+
+c). What does "control the population" exactly mean? Why would introduction of wolves control the popoulation of deer? Is the control giving a lower bound to the wolve population, or upper bound?
+
+The engieered prompts are given below:
+
+--------------------------------------------------------------------------------------------------------
+
+b). We went to the lake, because a shark had been seen at the ocean beach, so it was a dangerous place to swim. Which was a dangerous place to swim? Why is it dangerous? Why is the counterpart safer? Explain the underlying mechanism in plain words.
+
+c).  There are too many deer in the park, so the park service brought in a small pack of wolves. The population should increase over the next few years. Which population will increase? Why would it increase? Would there be any decrease with the increase? Explain the underlying mechanism in plain words
+--------------------------------------------------------------------------------------------------------
+
+
+Here are the responses
+--------------------------------------------------------------------------------------------------------
+b). The ocean beach was a dangerous place to swim because a shark had been seen there. Sharks can pose a threat to swimmers as they may attack or bite humans, causing serious injuries or even fatalities. In this case, the lake is considered a safer counterpart for swimming because it does not have the presence of sharks. Lakes typically do not have sharks, as they are saltwater creatures and lakes are freshwater bodies. So, by choosing to swim in the lake instead of the ocean beach, the risk of encountering a shark is significantly reduced, making it a safer option.
+
+c). The wolf population is expected to increase over the next few years. The reason for this increase is that the park service brought in a small pack of wolves to help control the deer population. As the wolves find an abundant food source in the form of deer, they are likely to thrive, reproduce, and grow in numbers.
+
+With the increase in the wolf population, it is expected that the deer population will decrease. The underlying mechanism is that wolves are natural predators of deer. As the number of wolves increases, they will hunt and consume more deer, which should help to reduce the deer population. This predator-prey relationship is a natural way to maintain balance in an ecosystem, ensuring that no single species becomes too dominant or overpopulated.
+--------------------------------------------------------------------------------------------------------
+
+The model provides exactly what I expected from it. It provides an response with in-depth understanding to the topic, and introduced what is really happening (the mechanism) that is convincing to those who have minimum knowledge to the background.
+
+For prompt b), it did exactly what I expected (I promise I wrote the prompts before seeing the results). The quality is extremely impressive to me, I can only admire the engineers at Openai.
+
+For prompt c), I believe it is not as good as prompt b, as it did not provide as much information as I expected. In fact, I expected the model to indicate that, after the increase in wolf population it would decrease and form equilibrium (as introduced in BIO120). However, it did state that this is a way to balance the ecosystem. The answer is good and convincing but I believe would not suffice to be precivable to audiences that have no background knowledge.
+
+Yes, there is a way to engineer the prompt so the response make more sense, and there are indeed some techniques doing that.
