@@ -1,0 +1,15 @@
+One way to leverage the reasoning abilities of LLM is to let them explain a phenomenon to us. We can
+prompt an LLM using a special question format, [phenomenon] + because, to let each of them generate
+natural language explanations. For example:
+1. The sky is turning dark because
+2. When releasing a ball, it falls onto the ground because
+3. When searching for “language model”, the search engine returns “ChatGPT” because
+
+The generated explanations fall into several types. The explanations might (1) highlight the true underlying
+causal mechanisms of the phenomenon, (2) identify a plausible mechanism to make the phenomenon appear
+reasonable, or (3) describe some irrelevant information.
+In this question, select two LMs – a large model (e.g., ChatGPT, GPT3, Cohere) and a smaller model
+(e.g., BERT, GPT2, GPT-J), and prompt each of them with three phenomena. Report your choice of
+models, phenomena, and their generated explanations. Comment on the qualities of the explanations: Are
+the explanations convincing? Do the explanations highlight the true causes? Include the relevant scripts
+and your discussions in bonusNLE.pdf, and include the PDF file in your submission.
