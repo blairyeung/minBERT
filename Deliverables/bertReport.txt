@@ -1,7 +1,7 @@
 1. Architecture change and hyperparameters
 I modified the strucutre of the classifier a bit by using two layers of FC connected by a RELU. This has been proved to improve the performance of the model over a simple linear layer.
 
-I used the following hyper parameters:
+Table 1: Hyperparameters
 Hyperparam    |Value
 --------------|--------------
 Hidden_size   |768
@@ -14,26 +14,60 @@ epochs        |10
 Use_GPU       |True
 
 
-
+Table 2: Runtime Information
 Hyperparam        |Value
 ------------------|------------------
 GPU used          |NVIDIA RTX A4000
 Runtime per epoch |~2min
+batch/s (Train)   |~3.5
+batch/s (Eval)    |~8.8
 GPU memory        |16G
 Memory allocated  |8G
 
 
+Figure 1: Typical runtime for the model
+train-0: 100%|██████████| 214/214 [01:02<00:00,  3.44it/s]
+eval: 100%|██████████| 214/214 [00:24<00:00,  8.76it/s]
+eval: 100%|██████████| 31/31 [00:03<00:00,  8.91it/s]
+
+
+Table 3: Final accuracy of the model (10 epochs)
 Final Accuracy    |Value
 ------------------|------------------
 Training          |0.999
 Dev               |0.971
+Loss              |0.007
 
+
+Figure 2: Hardware information
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 530.30.02              Driver Version: 530.30.02    CUDA Version: 12.1     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                  Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf            Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  NVIDIA RTX A4000                On | 00000000:17:00.0 Off |                  Off |
+| 41%   37C    P8               15W / 140W|      1MiB / 16376MiB |      0%      Default |
+|                                         |                      |                  N/A |
++-----------------------------------------+----------------------+----------------------+
+                                                                                         
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|  No running processes found                                                           |
++---------------------------------------------------------------------------------------+
 
 2. Tuning procedure
-I started by tuning the option. I found the accuracy to be significantly higher when option is set to flexible (approx 30% accuracy boost), and set option to flexible in all the following tuning. Then, I attempted to adjust the dropout_prob and learning_rate. However, I did not find significant improvement over the development/training set (~ 0.9 train acc). Then I slightly adjusted the classifier architecture by adding an extra layer, then the training accuracy went up to as high as 0.998. I initially suspected this may be attributed to potential overfit. However, the hight accuracy in dev set (0.967) suggested the superiority in the performance. 
 
-After this, I played around with lr and the dropout prob (*2 and * 1/2, respectively), which caused both accuracy to increas by a marginal amount. I then increased both to the one given above, and achieved really good accuracy. I stopped here beaucse of that I found keeping doing so starts to reduce the accuracy (when lr goes above 3e-4 and dropout goes lower than 0.2).
+1. I started by tuning the option and found that setting it to flexible significantly improved accuracy (approximately a 30% accuracy boost). I then tried adjusting the dropout_prob and learning_rate but did not observe significant improvement on the development/training set (with training accuracy around 0.9). Next, I adjusted the classifier architecture by adding an extra layer, which increased the training accuracy to as high as 0.999. I initially suspected potential overfitting, but the high accuracy on the dev set (0.967) suggested superior performance.
 
-My tuning strategy is to by doing bounded binary search, and assume the final acc is a convex function regarding lr and dropout prob (as well as batch).
+2. I experimented with the learning rate by adjusting them on a log scale. It increased by a marginal amoutn in both accuracies. I then increased the learning rate to the 2e-5, achieving accuracy of 0.970 on dev set. I stopped the tuning process at this point because further adjustments started to reduce the accuracy (when the learning rate went above 3e-4 and dropout went below 0.2).
 
-I attempted to tune the batch size. I believed it is a good practice so sometime keep the batch size as large as we could do (although setting it too large tends to cause underfit). However, I found anything above 32 is too large and 8 is good enough, thus I did not change it.
+3. I then played with the drop out probability. I found 0.5 too high and 0.1 too low. I then tried 0.4, 0.3, 0.2 and find 0.2 achieving highest accuarcy (0.971). Thus, I decided to bound the optimization around 0.2. I tried 0.15 and 0.25 but neither of them is as good as 0.2. Thus I just decided to stick with 0.2. 
+
+4. I also attempted to tune the batch size. While it is generally a good practice to keep the batch size as large as possible (without causing underfitting), I found that anything above 32 was too large and that 8 was sufficient, so I did not make further adjustments.
+
+My tuning strategy involved conducting a bounded binary search and assuming that the final accuracy is a convex function concerning the learning rate, dropout probability, and batch size. Overall, the tuning process isn't so complex, I just searched the params on a log scale (1e-5, 3e-5, 1e-4, ...). Since hte initial accuracy is already pretty good, I did not bother changing the hyper-params too much comparing to the baseline.

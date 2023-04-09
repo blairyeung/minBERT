@@ -5,53 +5,101 @@ I recorded the sound using default Sound Recorder from Windows 11, and reformate
 
 2. Original transcirpts
 
+----------------------------------------------------------------------------------------------------------
 A word.
 "Elephants."
 
+----------------------------------------------------------------------------------------------------------
+A sentence.
 "The sun sets in the west every evening."
+
+----------------------------------------------------------------------------------------------------------
 A sentence, but read very slowly:
-
 "The quick brown fox jumps over the lazy dog."
+
+----------------------------------------------------------------------------------------------------------
 A sentence read at normal speed, except speeding up at some words:
-
 "I will travel to Paris next month for a short vacation."
+
+----------------------------------------------------------------------------------------------------------
 A sentence spoken very fast:
-
 "She sells seashells by the seashore."
-(Optional) A sentence containing slang or words from a second language:
 
+----------------------------------------------------------------------------------------------------------
+(Optional) A sentence containing slang or words from a second language:
 "That café has the best croissants, they're 非常好!" (French + Chinese)
 
+----------------------------------------------------------------------------------------------------------
 A sentence with one word spelled out by alphabet:
 "My name is Alice, spelled A-L-I-C-E."
 
+----------------------------------------------------------------------------------------------------------
 A sentence where two neighboring words have blurred boundaries:
 "I can'tbelieve it's already the end of the year."
 
+----------------------------------------------------------------------------------------------------------
 A sentence spoken with some stuttering, containing filler words and repetitiveness:
 "So, um, I was, uh, going to the, you know, store and, uh, I, I saw this, um, incredible sale."
 
+----------------------------------------------------------------------------------------------------------
 A sentence with a tongue twister:
 "How can a clam cram in a clean cream can?"
 
+----------------------------------------------------------------------------------------------------------
+
 3. Transcription result
+
+----------------------------------------------------------------------------------------------------------
 Transcription for file 0: ELEPHANTS
+
 Transcription for file 1: THE SAINT SAID IN THE WEST EVERY EVENING
+
 Transcription for file 2: THE QUICK BROWN FOX CHUMS COVERS LAZY DOG
+
 Transcription for file 3: ABROAD TRAVELLED TO PARIS NEXT MONTH FOR A SHORT VACATION
+
 Transcription for file 4: HIS ELSIE CHARLES BESSY SHORE
+
 Transcription for file 5: THE CONVEY OF THE BASILISON IN THE HAWKSHIRE
+
 Transcription for file 6: MY NAME IS ALICE STOUT AIN'T NOW I SEE YOU
+
 Transcription for file 7: A COMMITTEE IS ALREADY INNOCENTLY
+
 Transcription for file 8: SO ON I WAS GOING ALL GOING TO THE STORE AND OF I SOUGHT IT ON INCREDIBLE CELL
+
 Transcription for file 9: HOW CAN A LAMB CRAMMED IN A CLEAN QUEEN YOU CAN
+----------------------------------------------------------------------------------------------------------
 
-4. Analysis
+4. Discussion
+
 The performance of transcription is significantly under my expectation. 
+----------------------------------------------------------------------------------------------------------
+File 0 (Single word): The ASR system performed perfectly, accurately transcribing the word "Elephants."
 
-The ASR model did reasonably well in short/single word recognition, but it suffers to keep up when the structure of the sentences gets more complex. 
-The model fails to recognize some non-english tokens (i.e, 非常好，croissants), and single-letter tokens (A-L-I-C-E). The model also fails to handle faster reading speeds, and some blurred words. Specifically sentence 7 and sentence 9.
-The variability in speed seemed to make the model suffer in recognize the actual phonemes. However, it seems to performe reasonably well in removing the disfulencies, specifically in sentence 8, where it can remove all "uh" and "um" while 
-keeping most of the sentence correct.
-We believed that the model might have not addressed the actual meaning of each of these sentences, as most of them don't make any sense. For example, in sentence 3, the ASR recognized "jumps" as "chums".
-However, the poor performance of the model may also be attributed the the audio quality (althought we believe they are acceptable).
+File 1 (Standard sentence): The transcription was somewhat inaccurate, with "The sun sets" being transcribed as "The saint said." The rest of the sentence was transcribed correctly.
+
+File 2 (Slowly read sentence): The transcription contained minor errors, with "jumps over" being transcribed as "chums covers."
+
+File 3 (Normal speed with some sped-up words): The transcription was inaccurate, with "I will travel" being transcribed as "abroad travelled." The rest of the sentence was transcribed correctly.
+
+File 4 (Fast sentence): The transcription was largely inaccurate, as the ASR system struggled to recognize the fast-spoken words in the sentence.
+
+File 5 (Slang or second language): The transcription was highly inaccurate, as the ASR system failed to recognize the French and Chinese words.
+
+File 6 (Alphabet spelling): The transcription was inaccurate, with the spelling of "Alice" being misunderstood as "Stout ain't now I see you."
+
+File 7 (Blurred word boundaries): The transcription was inaccurate, as the ASR system could not correctly identify the blurred word boundaries.
+
+File 8 (Stuttering, filler words, and repetitiveness): The transcription was partially accurate, with some filler words and repetitions being captured. However, there were errors in the transcription of other parts of the sentence.
+
+File 9 (Tongue twister): The transcription was mostly inaccurate, the ASR system struggled to transcribe the tongue twister correctly.
+----------------------------------------------------------------------------------------------------------
+
+The ASR model performed reasonably well in short or single-word recognition, but struggled to keep up when the structure of the sentences became more complex.
+
+The model had difficulty recognizing non-English tokens (e.g., 非常好, croissants) and single-letter tokens (A-L-I-C-E). It also struggled to handle faster reading speeds and blurred words, specifically in sentences 7 and 9. The variability in speed seemed to hinder the model's ability to recognize the actual phonemes. However, the model performed reasonably well in removing disfluencies, specifically in sentence 8, where it removed all instances of "uh" and "um" while maintaining most of the sentence's accuracy.
+
+It is possible that the model did not fully address the actual meaning of each of these sentences, as many of them did not make sense. For example, in sentence 3, the ASR recognized "jumps" as "chums." The poor performance of the model may also be attributed to the audio quality, although we believe it to be acceptable.
+
+In summary, the ASR system performed well in some cases, such as single words and standard sentences. However, it struggled with fast speech, foreign language words, blurred word boundaries, and sentences containing stuttering, filler words, and tongue twisters. This discussion highlights areas where the ASR system could be improved to provide more accurate transcriptions across various situations.
